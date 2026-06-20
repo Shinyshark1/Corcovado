@@ -1,10 +1,21 @@
 ﻿@page "/file-upload"
+@using Corcovado.Services;
+@using DTO.DatabaseFile;
 
 <h3>File upload</h3>
 
 <p>Upload a file here and we'll add it to the database.</p>
+@foreach (var file in _files)
+{
+    <div>#@file.DatabaseFileId - @file.FileName</div>
+}
 
-
+@inject ApiHttpClient ApiHttpClient
 @code {
+    private List<DatabaseFileDTO> _files = [];
 
+    protected override async Task OnInitializedAsync()
+    {
+        _files = await ApiHttpClient.GetDatabaseFilesAsync();
+    }
 }
