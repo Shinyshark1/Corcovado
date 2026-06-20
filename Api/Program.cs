@@ -1,3 +1,5 @@
+using Api;
+using Api.Services.DatabaseFile;
 using DAL;
 using Scalar.AspNetCore;
 
@@ -13,6 +15,9 @@ if(string.IsNullOrWhiteSpace(corcovadoConnectionString))
 }
 
 builder.Services.AddCorcovadoDataLayer(corcovadoConnectionString);
+
+builder.Services.InjectProviders();
+builder.Services.InjectServices();
 
 var app = builder.Build();
 
