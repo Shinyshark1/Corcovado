@@ -1,10 +1,26 @@
 using Corcovado.Components;
+using Corcovado.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.Development.json", optional: true, reloadOnChange: true);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+var apiBaseAddress = builder.Configuration["Api:BaseAddress"];
+if (string.IsNullOrWhiteSpace(apiBaseAddress))
+{
+    throw new InvalidOperationException("Api:BaseAddress is required");
+}
+
+builder.Services.AddHttpClient<ApiHttpClient>(client =>
+{
+    client.BaseAddress = new Uri(apiBaseAddress);
+});
 
 var app = builder.Build();
 

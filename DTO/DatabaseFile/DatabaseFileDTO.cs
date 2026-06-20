@@ -1,4 +1,4 @@
-﻿namespace Api.DTOs.DatabaseFile
+﻿namespace DTO.DatabaseFile
 {
     public class DatabaseFileDTO
     {

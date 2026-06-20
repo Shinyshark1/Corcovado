@@ -1,5 +1,5 @@
-﻿using Api.DTOs.DatabaseFile;
-using Api.Services.DatabaseFile;
+﻿using Api.Services.DatabaseFile;
+using DTO.DatabaseFile;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers

@@ -2,4 +2,5 @@
   <Project Path="Api/Api.csproj" Id="16af6745-90a7-422d-97d3-5228fb655430" />
   <Project Path="Corcovado/Corcovado.csproj" />
   <Project Path="DAL/DAL.csproj" Id="3b89194b-caac-4b30-973f-6f1869514aef" />
+  <Project Path="DTO/DTO.csproj" Id="f53dce6d-d9c2-41f5-b795-dad00ab34a10" />
 </Solution>

@@ -1,5 +1,5 @@
-﻿using Api.DTOs.DatabaseFile;
-using DAL.Context;
+﻿using DAL.Context;
+using DTO.DatabaseFile;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Services.DatabaseFile
