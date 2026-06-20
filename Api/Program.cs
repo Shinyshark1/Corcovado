@@ -1,12 +1,18 @@
+using DAL;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+var corcovadoConnectionString = builder.Configuration["ConnectionStrings:CorcovadoDatabase"];
+if(string.IsNullOrWhiteSpace(corcovadoConnectionString))
+{
+    throw new InvalidOperationException("ConnectionStrings:CorcovadoDatabase is required");
+}
+
+builder.Services.AddCorcovadoDataLayer(corcovadoConnectionString);
 
 var app = builder.Build();
 
@@ -22,4 +28,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+app.Services.ApplyDatabaseMigrations();
+
+await app.RunAsync();

@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "Blazor + API",
+    "Projects": [
+      {
+        "Path": "Api\\Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "Corcovado\\Corcovado.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
