@@ -8,18 +8,32 @@ namespace Api.Controllers
     [Route("[controller]")]
     public class DatabaseFileController : ControllerBase
     {
-        private readonly DatabaseFileProvider _databaseFileProvider;
+        private readonly DatabaseFileRepository _databaseFileRepository;
+        private readonly DatabaseFileService _databaseFileService;
 
-        public DatabaseFileController(DatabaseFileProvider databaseFileProvider)
+        public DatabaseFileController(DatabaseFileRepository databaseFileRepository, DatabaseFileService databaseFileService)
         {
-            _databaseFileProvider = databaseFileProvider;
+            _databaseFileRepository = databaseFileRepository;
+            _databaseFileService = databaseFileService;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<DatabaseFileDTO>>> Get()
         {
-            var result = await _databaseFileProvider.GetDatabaseFiles();
+            var result = await _databaseFileRepository.GetDatabaseFiles();
             return Ok(result);
+        }
+
+        [HttpDelete("{databaseFileId}")]
+        public async Task<IActionResult> Delete(int databaseFileId)
+        {
+            var deleteResult = await _databaseFileService.DeleteDatabaseFile(databaseFileId);
+            if (!deleteResult)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
         }
     }
 }

@@ -1,5 +1,7 @@
 using Corcovado.Components;
 using Corcovado.Services;
+using Corcovado.Services.Client;
+using Corcovado.Services.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,10 +19,9 @@ if (string.IsNullOrWhiteSpace(apiBaseAddress))
     throw new InvalidOperationException("Api:BaseAddress is required");
 }
 
-builder.Services.AddHttpClient<ApiHttpClient>(client =>
-{
-    client.BaseAddress = new Uri(apiBaseAddress);
-});
+// Dependency Injection via extension methods
+builder.Services.InjectHttpClient(apiBaseAddress);
+builder.Services.InjectServices();
 
 var app = builder.Build();
 

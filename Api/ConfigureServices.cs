@@ -6,12 +6,12 @@ namespace Api
     {
         public static void InjectServices(this IServiceCollection services) 
         { 
-        
+            services.AddScoped<DatabaseFileService>();
         }
 
-        public static void InjectProviders(this IServiceCollection services)
+        public static void InjectRepositories(this IServiceCollection services)
         {
-            services.AddScoped<DatabaseFileProvider>();
+            services.AddScoped<DatabaseFileRepository>();
         }
     }
 }

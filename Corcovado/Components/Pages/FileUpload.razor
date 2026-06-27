@@ -1,21 +1,42 @@
 ﻿@page "/file-upload"
+@rendermode InteractiveServer
 @using Corcovado.Services;
 @using DTO.DatabaseFile;
 
 <h3>File upload</h3>
 
+<p>Next time - filtering using these concepts.</p>
+<p>- Components (.razor files)</p>
+<p>- Parameters ([Parameter])</p>
+<p>- Data binding (@@bind)</p>
+<p>- Dependency injection (@@inject)</p>
+<p>- Event handling (@@onclick)</p>
+<p>- Rendering modes (Server, WebAssembly, Auto)</p>
+
+
 <p>Upload a file here and we'll add it to the database.</p>
 @foreach (var file in _files)
 {
-    <div>#@file.DatabaseFileId - @file.FileName</div>
+    <div>#@file.DatabaseFileId - @file.FileName | <button @onclick="async () => await DeleteFile(file.DatabaseFileId)">Delete</button></div>
 }
 
-@inject ApiHttpClient ApiHttpClient
+@inject FileService FileService
 @code {
     private List<DatabaseFileDTO> _files = [];
 
+    private async Task DeleteFile(int databaseFileId)
+    {
+        await FileService.DeleteDatabaseFile(databaseFileId);
+        await LoadFiles();
+    }
+
     protected override async Task OnInitializedAsync()
     {
-        _files = await ApiHttpClient.GetDatabaseFilesAsync();
+        await LoadFiles();
+    }
+
+    private async Task LoadFiles()
+    {
+        _files = await FileService.GetDatabaseFiles();
     }
 }

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Api.Services.DatabaseFile
 {
-    public class DatabaseFileProvider
+    public class DatabaseFileRepository
     {
         private readonly CorcovadoDbContext _dbContext;
 
-        public DatabaseFileProvider(CorcovadoDbContext dbContext)
+        public DatabaseFileRepository(CorcovadoDbContext dbContext)
         {
             _dbContext = dbContext;
         }
